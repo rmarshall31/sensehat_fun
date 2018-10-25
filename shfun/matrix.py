@@ -1,65 +1,83 @@
 #!/usr/bin/env python
-import time
 import random
+import time
 
 from sense_hat import SenseHat
 
 
-Class Matrix:
-    """this classA
+class Matrix:
+    """displays a matrix-like visual effect on the sense hat
     Attributes:
         rotation    how is your pi oriented?
         length      length of the tail
         color       shade of green from 0 - 255
         randomness  lower number = more dense
         refresh     lower number = faster
+        cycles      how many cycles to do (0 to run forever)
     """
+
     def __init__(
             self,
-            rotation=180,
+            rotation=0,
             length=6,
             color=150,
             randomness=12,
             refresh=0.05,
-         ):
+            cycles=0,
+    ):
+        self.length = length
+        self.color = color
+        self.randomness = randomness
+        self.refresh = refresh
+        self.cycles = cycles
 
-        sense = SenseHat()
-        self.sense.set_rotation(self.rotation)
+        self.sense = SenseHat()
+        self.sense.set_rotation(rotation)
         self.sense.clear()
 
-        matrix = [[[0, 0] for y in range(8)] for x in range(8)]
+        self.matrix = [[[0, 0] for y in range(8)] for x in range(8)]
 
-    while True:
-        for row in range(8):
-            if row == 0:
-                for col in range(8):
-                    if not matrix[row][col][0] and not random.randint(0, randomness):
-                        matrix[row][col] = [1, 0]
-                        sense.set_pixel(col, row, int(color * 0.5), color, int(color * 0.5))
-                    elif matrix[row][col][0] == 1 and matrix[row][col][1] < length:
-                        matrix[row][col][1] += 1
-                        sense.set_pixel(col, row, 0, color, 0)
-                    elif matrix[row][col][0] == 1 and matrix[row][col][1] == length:
-                        matrix[row][col][1] += 1
-                        sense.set_pixel(col, row, 0, int(color * 0.5), 0)
-                    else:
-                        matrix[row][col] = [0, 0]
-                        sense.set_pixel(col, row, 0, 0, 0)
-            else:
-                for col in range(8):
-                    if not matrix[row][col][0] and matrix[row - 1][col] == [1, 0]:
-                        pass
-                    elif matrix[row][col][0] == 0 and matrix[row - 1][col][0] == 1:
-                        matrix[row][col] = [1, 0]
-                        sense.set_pixel(col, row, int(color * 0.5), color, int(color * 0.5))
-                    elif matrix[row][col][0] == 1 and matrix[row][col][1] < length:
-                        matrix[row][col][1] += 1
-                        sense.set_pixel(col, row, 0, color, 0)
-                    elif matrix[row][col][0] == 1 and matrix[row][col][1] == length:
-                        matrix[row][col][1] += 1
-                        sense.set_pixel(col, row, 0, int(color * 0.5), 0)
-                    else:
-                        matrix[row][col] = [0, 0]
-                        sense.set_pixel(col, row, 0, 0, 0)
+    def enter(self):
+        completed_cycles = 0
+        while True:
+            for row in range(8):
+                if row == 0:
+                    for col in range(8):
+                        if not self.matrix[row][col][0] and not random.randint(0, self.randomness):
+                            self.matrix[row][col] = [1, 0]
+                            self.sense.set_pixel(col, row, int(self.color * 0.5), self.color, int(self.color * 0.5))
+                        elif self.matrix[row][col][0] == 1 and self.matrix[row][col][1] < self.length:
+                            self.matrix[row][col][1] += 1
+                            self.sense.set_pixel(col, row, 0, self.color, 0)
+                        elif self.matrix[row][col][0] == 1 and self.matrix[row][col][1] == self.length:
+                            self.matrix[row][col][1] += 1
+                            self.sense.set_pixel(col, row, 0, int(self.color * 0.5), 0)
+                        else:
+                            self.matrix[row][col] = [0, 0]
+                            self.sense.set_pixel(col, row, 0, 0, 0)
+                else:
+                    for col in range(8):
+                        if not self.matrix[row][col][0] and self.matrix[row - 1][col] == [1, 0]:
+                            pass
+                        elif self.matrix[row][col][0] == 0 and self.matrix[row - 1][col][0] == 1:
+                            self.matrix[row][col] = [1, 0]
+                            self.sense.set_pixel(col, row, int(self.color * 0.5), self.color, int(self.color * 0.5))
+                        elif self.matrix[row][col][0] == 1 and self.matrix[row][col][1] < self.length:
+                            self.matrix[row][col][1] += 1
+                            self.sense.set_pixel(col, row, 0, self.color, 0)
+                        elif self.matrix[row][col][0] == 1 and self.matrix[row][col][1] == self.length:
+                            self.matrix[row][col][1] += 1
+                            self.sense.set_pixel(col, row, 0, int(self.color * 0.5), 0)
+                        else:
+                            self.matrix[row][col] = [0, 0]
+                            self.sense.set_pixel(col, row, 0, 0, 0)
+            completed_cycles += 1
+            if completed_cycles >= self.cycles and self.cycles != 0:
+                break
 
-        time.sleep(refresh)
+            time.sleep(self.refresh)
+
+
+if __name__ == "__main__":
+    THE_MATRIX = Matrix()
+    THE_MATRIX.enter()
