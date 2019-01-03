@@ -71,11 +71,14 @@ class Matrix:
                         else:
                             self.matrix[row][col] = [0, 0]
                             self.sense.set_pixel(col, row, 0, 0, 0)
-            completed_cycles += 1
-            if completed_cycles >= self.cycles and self.cycles != 0:
-                break
 
             time.sleep(self.refresh)
+
+            completed_cycles += 1
+            if completed_cycles >= self.cycles != 0:
+                self.sense.clear()
+                time.sleep(1)
+                break
 
 
 if __name__ == "__main__":

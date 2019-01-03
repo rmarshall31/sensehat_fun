@@ -1,25 +1,52 @@
 #!/usr/bin/env python
 import random
 import time
+
 from sense_hat import SenseHat
 
 
-sense = SenseHat()
-sense.set_rotation(0)
-sense.clear()
+class Seisure:
+    """Help an epileptic have a seisure
+    Attributes:
+        rotation    how is your pi oriented?
+        speed       how fast should the pixels change?
+        cycles      how many iterations to run (0 to run forever)
+    """
 
-previous_pixel = (0, 0)
-while True:
-    x = int(random.getrandbits(3))
-    y = int(random.getrandbits(3))
-    r = int(random.getrandbits(8))
-    g = int(random.getrandbits(8))
-    b = int(random.getrandbits(8))
-    #r = 255
-    #g = 255
-    #b = 255
+    def __init__(
+            self,
+            rotation=0,
+            speed=0.01,
+            cycles=0,
+    ):
 
-    sense.set_pixel(*(previous_pixel + (0, 0, 0)))
-    sense.set_pixel(x, y, r, g, b)
-    previous_pixel = (x, y)
-    time.sleep(0.01)
+        self.speed = speed
+        self.cycles = cycles
+
+        self.sense = SenseHat()
+        self.sense.set_rotation(rotation)
+        self.sense.clear()
+
+    def seize(self):
+        previous_pixel = (0, 0)
+        completed_cycles = 0
+        while True:
+            x = int(random.getrandbits(3))
+            y = int(random.getrandbits(3))
+            r = int(random.getrandbits(8))
+            g = int(random.getrandbits(8))
+            b = int(random.getrandbits(8))
+
+            self.sense.set_pixel(*(previous_pixel + (0, 0, 0)))
+            self.sense.set_pixel(x, y, r, g, b)
+            previous_pixel = (x, y)
+            time.sleep(self.speed)
+
+            completed_cycles += 1
+            if completed_cycles >= self.cycles != 0:
+                break
+
+
+if __name__ == "__main__":
+    SEISURE = Seisure()
+    SEISURE.seize()
