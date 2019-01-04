@@ -48,6 +48,10 @@ class Fly:
             moved = False
             self.clear_pos(oldpos)
             if flower == oldpos:
+                completed_cycles += 1
+                if completed_cycles >= self.cycles != 0:
+                    self.sense.clear()
+                    break
                 flower = random.randint(0, 63)
                 self.print_pos(flower, [90, 90, 0])
             oldpos = pos
@@ -89,9 +93,6 @@ class Fly:
 
             time.sleep(self.speed)
 
-            completed_cycles += 1
-            if completed_cycles >= self.cycles != 0:
-                break
 
 
 if __name__ == "__main__":

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import time
 
 from shfun import matrix
 from shfun import environment
@@ -12,7 +13,11 @@ seisure = seisure.Seisure(cycles=10000)
 
 while True:
     the_matrix.enter()
+    time.sleep(1)
     environment.set_color_from_temp()
     environment.display_environment()
+    time.sleep(1)
     fly.catch()
-    seizure.seize()
+    time.sleep(1)
+    seisure.seize()
+    time.sleep(1)

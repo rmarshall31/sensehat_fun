@@ -44,6 +44,7 @@ class Seisure:
 
             completed_cycles += 1
             if completed_cycles >= self.cycles != 0:
+                self.sense.clear()
                 break
 
 
