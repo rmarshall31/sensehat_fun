@@ -1,0 +1,10 @@
+[Unit]
+Description=sensehat fun
+
+[Service]
+ExecStart=/home/pi/projects/sensehat_fun/fun.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
