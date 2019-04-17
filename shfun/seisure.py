@@ -31,11 +31,12 @@ class Seisure:
         previous_pixel = (0, 0)
         completed_cycles = 0
         while True:
-            x = int(random.getrandbits(3))
-            y = int(random.getrandbits(3))
-            r = int(random.getrandbits(8))
-            g = int(random.getrandbits(8))
-            b = int(random.getrandbits(8))
+            rng = random.SystemRandom()
+            x = int(rng.getrandbits(3))
+            y = int(rng.getrandbits(3))
+            r = int(rng.getrandbits(8))
+            g = int(rng.getrandbits(8))
+            b = int(rng.getrandbits(8))
 
             self.sense.set_pixel(*(previous_pixel + (0, 0, 0)))
             self.sense.set_pixel(x, y, r, g, b)
