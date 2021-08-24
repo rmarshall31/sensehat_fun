@@ -94,7 +94,6 @@ class Fly:
             time.sleep(self.speed)
 
 
-
 if __name__ == "__main__":
     FLY = Fly()
     FLY.catch()

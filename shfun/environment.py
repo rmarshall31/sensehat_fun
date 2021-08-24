@@ -25,7 +25,7 @@ class Environment:
             speed=0.1,
             cycles=0,
             correction=0.83,
-            color = [150, 150, 150],
+            color=[150, 150, 150],
             elevation=970,
             cold=68,
             warm=77,

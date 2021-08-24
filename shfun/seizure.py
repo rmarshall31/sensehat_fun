@@ -5,7 +5,7 @@ import time
 from sense_hat import SenseHat
 
 
-class Seisure:
+class Seizure:
     """Help an epileptic have a seisure
     Attributes:
         rotation    how is your pi oriented?
@@ -50,5 +50,5 @@ class Seisure:
 
 
 if __name__ == "__main__":
-    SEISURE = Seisure()
+    SEISURE = Seizure()
     SEISURE.seize()

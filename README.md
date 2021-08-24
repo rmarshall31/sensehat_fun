@@ -1,8 +1,9 @@
 # sensehat_fun
+
 I have a rpi with a sense hat in my cube at work. The goal of this project is to have some neat things displayed on it.
 
-
 ## requirements
+
 install python-sense-hat
 
 ```bash

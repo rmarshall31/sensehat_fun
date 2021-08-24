@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 import time
 
-from shfun import matrix
 from shfun import environment
 from shfun import fly
-from shfun import seisure
+from shfun import hai_retirement
+from shfun import matrix
+from shfun import seizure
 
 the_matrix = matrix.Matrix(cycles=10000)
 environment = environment.Environment(cycles=3)
 fly = fly.Fly(cycles=25)
-seisure = seisure.Seisure(cycles=10000)
+seizure = seizure.Seizure(cycles=10000)
+general = hai_retirement.General()
 
 while True:
     the_matrix.enter()
@@ -19,5 +21,7 @@ while True:
     time.sleep(1)
     fly.catch()
     time.sleep(1)
-    seisure.seize()
+    seizure.seize()
+    time.sleep(1)
+    general.days_to_retirement()
     time.sleep(1)
