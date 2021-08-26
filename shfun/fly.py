@@ -31,10 +31,10 @@ class Fly:
         self.sense.clear()
 
     def print_pos(self, position, color):
-        self.sense.set_pixel((position % 8), (position / 8), color)
+        self.sense.set_pixel(int(position % 8), int(position / 8), color)
 
     def clear_pos(self, position):
-        self.sense.set_pixel((position % 8), (position / 8), 0, 0, 0)
+        self.sense.set_pixel(int(position % 8), int(position / 8), 0, 0, 0)
 
     def catch(self):
         flower = random.randint(0, 63)
